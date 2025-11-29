@@ -1,22 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Skrt
+
+A modern Next.js application built with TypeScript, Tailwind CSS, and Yarn.
+
+## Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org) with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Package Manager**: Yarn
+- **Linting**: ESLint with Next.js config
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- Yarn
+
+### Installation
+
+Install dependencies:
 
 ```bash
-npm run dev
-# or
+yarn install
+```
+
+### Development
+
+Run the development server:
+
+```bash
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+### Build
+
+Build the application for production:
+
+```bash
+yarn build
+```
+
+### Start Production Server
+
+Start the production server:
+
+```bash
+yarn start
+```
+
+### Lint
+
+Run ESLint to check for code issues:
+
+```bash
+yarn lint
+```
+
+## Project Structure
+
+```
+skrt/
+├── app/              # Next.js App Router directory
+│   ├── layout.tsx   # Root layout
+│   ├── page.tsx     # Home page
+│   └── globals.css  # Global styles with Tailwind
+├── public/          # Static assets
+├── next.config.ts   # Next.js configuration
+├── tsconfig.json    # TypeScript configuration
+└── package.json     # Dependencies and scripts
+```
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
