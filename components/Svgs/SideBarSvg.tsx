@@ -3,16 +3,20 @@ import React from "react";
 interface IconProps {
     active?: boolean;
     size?: number;
+    width?: number;
+    height?: number;
     [key: string]: any;
 }
 
-export const ManageUsersIcon = ({ active = false, size = 16, ...props }: IconProps) => {
+export const ManageUsersIcon = ({ active = false, size = 20, width, height, ...props }: IconProps) => {
     const color = active ? "#FFFFFF" : "#6B7280";
+    const svgWidth = width ?? size;
+    const svgHeight = height ?? size;
   
     return (
       <svg
-        width={size}
-        height={size}
+        width={svgWidth}
+        height={svgHeight}
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -54,13 +58,15 @@ export const ManageUsersIcon = ({ active = false, size = 16, ...props }: IconPro
     );
   };
 
-  export const ManageServicesIcon = ({ active = false, size = 24, ...props }: IconProps) => {
+  export const ManageServicesIcon = ({ active = false, size = 20, width, height, ...props }: IconProps) => {
     const color = active ? "#FFFFFF" : "#6B7280";
+    const svgWidth = width ?? size;
+    const svgHeight = height ?? size;
   
     return (
       <svg
-        width={size}
-        height={size}
+        width={svgWidth}
+        height={svgHeight}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -81,13 +87,15 @@ export const ManageUsersIcon = ({ active = false, size = 16, ...props }: IconPro
       </svg>
     );
   };
-  export const ManageFinanceIcon = ({ active = false, size = 24, ...props }: IconProps) => {
+  export const ManageFinanceIcon = ({ active = false, size = 20, width, height, ...props }: IconProps) => {
     const color = active ? "#FFFFFF" : "#6B7280";
+    const svgWidth = width ?? size;
+    const svgHeight = height ?? size;
   
     return (
       <svg
-        width={size}
-        height={size}
+        width={svgWidth}
+        height={svgHeight}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -101,13 +109,15 @@ export const ManageUsersIcon = ({ active = false, size = 16, ...props }: IconPro
     );
   };
     
-  export const ManageRolesIcon = ({ active = false, size = 24, ...props }: IconProps) => {
+  export const ManageRolesIcon = ({ active = false, size = 20, width, height, ...props }: IconProps) => {
     const color = active ? "#FFFFFF" : "#6B7280";
+    const svgWidth = width ?? size;
+    const svgHeight = height ?? size;
   
     return (
       <svg
-        width={size}
-        height={size}
+        width={svgWidth}
+        height={svgHeight}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -136,13 +146,15 @@ export const ManageUsersIcon = ({ active = false, size = 16, ...props }: IconPro
       </svg>
     );
   };
-  export const ManageDisputesIcon = ({ active = false, size = 24, ...props }: IconProps) => {
+  export const ManageDisputesIcon = ({ active = false, size = 20, width, height, ...props }: IconProps) => {
     const color = active ? "#FFFFFF" : "#6B7280";
+    const svgWidth = width ?? size;
+    const svgHeight = height ?? size;
   
     return (
       <svg
-        width={size}
-        height={size}
+        width={svgWidth}
+        height={svgHeight}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -158,13 +170,15 @@ export const ManageUsersIcon = ({ active = false, size = 16, ...props }: IconPro
   
 
   
-  export const ManageTaxationIcon = ({ active = false, size = 24, ...props }: IconProps) => {
+  export const ManageTaxationIcon = ({ active = false, size = 20, width, height, ...props }: IconProps) => {
     const color = active ? "#FFFFFF" : "#6B7280";
+    const svgWidth = width ?? size;
+    const svgHeight = height ?? size;
   
     return (
       <svg
-        width={size}
-        height={size}
+        width={svgWidth}
+        height={svgHeight}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -177,13 +191,15 @@ export const ManageUsersIcon = ({ active = false, size = 16, ...props }: IconPro
       </svg>
     );
   };
-  export const SettingsIcon = ({ active = false, size = 24, ...props }: IconProps) => {
+  export const SettingsIcon = ({ active = false, size = 20, width, height, ...props }: IconProps) => {
     const color = active ? "#FFFFFF" : "#6B7280";
+    const svgWidth = width ?? size;
+    const svgHeight = height ?? size;
   
     return (
       <svg
-        width={size}
-        height={size}
+        width={svgWidth}
+        height={svgHeight}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

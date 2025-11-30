@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
 import {
     ManageUsersIcon,
@@ -14,15 +15,44 @@ import {
 } from "@/components/Svgs/SideBarSvg";
 
 export default function SideBar() {
+    const pathname = usePathname();
+
     const menuItems = [
-        { name: "Manage Users", icon: ManageUsersIcon, active: true },
-        { name: "Manage Services", icon: ManageServicesIcon, active: false },
-        { name: "Manage Finance", icon: ManageFinanceIcon, active: false },
-        { name: "Manage Roles", icon: ManageRolesIcon, active: false },
-        { name: "Manage Disputes", icon: ManageDisputesIcon, active: false },
-        { name: "Manage Taxation", icon: ManageTaxationIcon, active: false },
-        { name: "Settings", icon: SettingsIcon, active: false },
+        { name: "Manage Users", icon: ManageUsersIcon, href: "/manage-users", width: 20, height: 20 },
+        { name: "Manage Services", icon: ManageServicesIcon, href: "/manage-services", width: 22, height: 22 },
+        { name: "Manage Finance", icon: ManageFinanceIcon, href: "#", width: 20, height: 20 },
+        { name: "Manage Roles", icon: ManageRolesIcon, href: "#", width: 20, height: 20 },
+        { name: "Manage Disputes", icon: ManageDisputesIcon, href: "#", width: 20, height: 20 },
+        { name: "Manage Taxation", icon: ManageTaxationIcon, href: "#", width: 20, height: 20 },
+        { name: "Settings", icon: SettingsIcon, href: "#", width: 20, height: 20 },
     ];
+
+    // Sort by href length (longest first) to prioritize more specific routes
+    const sortedMenuItems = [...menuItems].sort((a, b) => {
+        if (a.href === "#" || b.href === "#") return 0;
+        return b.href.length - a.href.length;
+    });
+
+    // Find the active item (most specific match)
+    const getActiveItem = () => {
+        // First check for exact match
+        const exactMatch = menuItems.find(item => pathname === item.href);
+        if (exactMatch) return exactMatch.href;
+        
+        // Then check for pathname starting with href (prioritizing longer paths)
+        for (const item of sortedMenuItems) {
+            if (item.href !== "#" && pathname?.startsWith(item.href)) {
+                // Ensure it's a proper path segment (ends with / or is end of string)
+                const nextChar = pathname[item.href.length];
+                if (!nextChar || nextChar === '/') {
+                    return item.href;
+                }
+            }
+        }
+        return null;
+    };
+
+    const activeHref = getActiveItem();
 
     return (
         <div className="flex flex-col h-screen w-64 bg-white font-sans border-r border-gray-100">
@@ -53,16 +83,21 @@ export default function SideBar() {
             <nav className="flex-1 space-y-2 h-full p-4 overflow-y-auto">
                 {menuItems.map((item) => {
                     const IconComponent = item.icon;
+                    const isActive = activeHref === item.href;
                     return (
                         <Link
                             key={item.name}
-                            href="#"
-                            className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium ${item.active
+                            href={item.href}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium ${isActive
                                 ? "bg-[#25C889] text-white"
                                 : "text-[#6B7280] hover:bg-gray-50 hover:text-[#1F2937]"
                                 }`}
                         >
-                            {React.createElement(IconComponent, { active: item.active, size: 20 })}
+                            {React.createElement(IconComponent, { 
+                                active: isActive, 
+                                width: item.width, 
+                                height: item.height 
+                            })}
                             {item.name}
                         </Link>
                     );

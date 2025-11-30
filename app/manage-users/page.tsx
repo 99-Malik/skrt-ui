@@ -17,6 +17,10 @@ import {
     Calendar,
 } from "lucide-react";
 import { UserAddIcon, TotalUsersIcon, BlockedUsersIcon } from "@/components/Svgs/CardSvgs";
+import ViewRequestorDetails from "@/components/ManageUsers/Modal/ViewRequestorDetails";
+import ViewResponderDetailsModal from "@/components/ManageUsers/Modal/ViewResponderDetailsModal";
+import ViewProfile from "@/components/ManageUsers/Modal/ViewProfile";
+
 export default function ManageUsers() {
     const [currentPage, setCurrentPage] = useState(1);
     const [allUsersPage, setAllUsersPage] = useState(1);
@@ -25,6 +29,10 @@ export default function ManageUsers() {
     const [selectedNewUsersFilter, setSelectedNewUsersFilter] = useState("All Types");
     const [selectedAllUsersFilter, setSelectedAllUsersFilter] = useState("All Types");
     const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
+    const [isRequestorModalOpen, setIsRequestorModalOpen] = useState(false);
+    const [isResponderModalOpen, setIsResponderModalOpen] = useState(false);
+    const [showProfileView, setShowProfileView] = useState(false);
+    const [selectedUser, setSelectedUser] = useState<typeof newUsers[0] | null>(null);
     const newUsersFilterRef = useRef<HTMLDivElement>(null);
     const allUsersFilterRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +54,20 @@ export default function ManageUsers() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    // Scroll to top when profile view is shown
+    useEffect(() => {
+        if (showProfileView) {
+            // Find the main scrollable container
+            const mainElement = document.querySelector('main');
+            if (mainElement) {
+                mainElement.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Fallback to window scroll
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    }, [showProfileView]);
 
     // Mock Data
     const stats = [
@@ -99,9 +121,18 @@ export default function ManageUsers() {
 
     return (
         <DashboardLayout title="Manage Users">
-            <div className="space-y-8 font-sans">
+            {showProfileView && selectedUser ? (
+                <ViewProfile
+                    user={selectedUser}
+                    onBack={() => {
+                        setShowProfileView(false);
+                        setSelectedUser(null);
+                    }}
+                />
+            ) : (
+            <div className="space-y-8 font-sans w-full">
                 {/* Header Row */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between w-full">
                     <h1 className="text-2xl font-bold text-[#1F2937]">Manage Users</h1>
                     <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-xs font-normal text-[#6B7280] cursor-pointer">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +151,7 @@ export default function ManageUsers() {
                 </div>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
                     {stats.map((stat) => (
                         <Card key={stat.title} {...stat} />
                     ))}
@@ -281,7 +312,17 @@ export default function ManageUsers() {
                                                     Reject
                                                     <X size={14} />
                                                 </button>
-                                                <button className="w-9 h-8 p-0 rounded-lg border border-gray-200 text-gray-600 flex items-center justify-center transition-colors">
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedUser(user);
+                                                        if (user.type === "Requestor") {
+                                                            setIsRequestorModalOpen(true);
+                                                        } else {
+                                                            setIsResponderModalOpen(true);
+                                                        }
+                                                    }}
+                                                    className="w-9 h-8 p-0 rounded-lg border border-gray-200 text-gray-600 flex items-center justify-center transition-colors hover:bg-gray-50"
+                                                >
                                                     <Eye size={14} />
                                                 </button>
                                             </div>
@@ -447,7 +488,13 @@ export default function ManageUsers() {
                                             {user.date}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-semibold hover:bg-gray-50 transition-colors">
+                                            <button
+                                                onClick={() => {
+                                                    setSelectedUser(user);
+                                                    setShowProfileView(true);
+                                                }}
+                                                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-semibold hover:bg-gray-50 transition-colors"
+                                            >
                                                 <Eye size={14} />
                                                 View Profile
                                             </button>
@@ -471,6 +518,27 @@ export default function ManageUsers() {
                     </div>
                 </div>
             </div>
+            )}
+
+            {/* View Requestor Details Modal */}
+            <ViewRequestorDetails
+                isOpen={isRequestorModalOpen}
+                onClose={() => {
+                    setIsRequestorModalOpen(false);
+                    setSelectedUser(null);
+                }}
+                user={selectedUser}
+            />
+
+            {/* View Responder Details Modal */}
+            <ViewResponderDetailsModal
+                isOpen={isResponderModalOpen}
+                onClose={() => {
+                    setIsResponderModalOpen(false);
+                    setSelectedUser(null);
+                }}
+                user={selectedUser}
+            />
         </DashboardLayout>
     );
 }
