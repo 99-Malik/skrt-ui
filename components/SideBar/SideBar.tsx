@@ -20,11 +20,11 @@ export default function SideBar() {
     const menuItems = [
         { name: "Manage Users", icon: ManageUsersIcon, href: "/manage-users", width: 20, height: 20 },
         { name: "Manage Services", icon: ManageServicesIcon, href: "/manage-services", width: 22, height: 22 },
-        { name: "Manage Finance", icon: ManageFinanceIcon, href: "#", width: 20, height: 20 },
-        { name: "Manage Roles", icon: ManageRolesIcon, href: "#", width: 20, height: 20 },
+        { name: "Manage Finance", icon: ManageFinanceIcon, href: "/manage-finances", width: 20, height: 20 },
+        { name: "Manage Roles", icon: ManageRolesIcon, href: "/manage-roles", width: 20, height: 20 },
         { name: "Manage Disputes", icon: ManageDisputesIcon, href: "#", width: 20, height: 20 },
         { name: "Manage Taxation", icon: ManageTaxationIcon, href: "#", width: 20, height: 20 },
-        { name: "Settings", icon: SettingsIcon, href: "#", width: 20, height: 20 },
+        { name: "Settings", icon: SettingsIcon, href: "/settings", width: 20, height: 20 },
     ];
 
     // Sort by href length (longest first) to prioritize more specific routes
