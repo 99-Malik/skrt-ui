@@ -18,13 +18,13 @@ export default function SideBar() {
     const pathname = usePathname();
 
     const menuItems = [
-        { name: "Manage Users", icon: ManageUsersIcon, href: "/manage-users", width: 20, height: 20 },
-        { name: "Manage Services", icon: ManageServicesIcon, href: "/manage-services", width: 22, height: 22 },
-        { name: "Manage Finance", icon: ManageFinanceIcon, href: "/manage-finances", width: 20, height: 20 },
-        { name: "Manage Roles", icon: ManageRolesIcon, href: "/manage-roles", width: 20, height: 20 },
-        { name: "Manage Disputes", icon: ManageDisputesIcon, href: "#", width: 20, height: 20 },
-        { name: "Manage Taxation", icon: ManageTaxationIcon, href: "#", width: 20, height: 20 },
-        { name: "Settings", icon: SettingsIcon, href: "/settings", width: 20, height: 20 },
+        { name: "Manage Users", icon: ManageUsersIcon, href: "/manage-users", width: 17, height: 17 },
+        { name: "Manage Services", icon: ManageServicesIcon, href: "/manage-services", width: 28, height: 28 },
+        { name: "Manage Finance", icon: ManageFinanceIcon, href: "/manage-finances", width: 28, height: 28 },
+        { name: "Manage Roles", icon: ManageRolesIcon, href: "/manage-roles", width: 28, height: 28 },
+        { name: "Manage Disputes", icon: ManageDisputesIcon, href: "/manage-disputes", width: 28, height: 28 },
+        { name: "Manage Taxation", icon: ManageTaxationIcon, href: "/manage-taxation", width: 28, height: 28 },
+        { name: "Settings", icon: SettingsIcon, href: "/settings", width: 28, height: 28 },
     ];
 
     // Sort by href length (longest first) to prioritize more specific routes
@@ -38,7 +38,7 @@ export default function SideBar() {
         // First check for exact match
         const exactMatch = menuItems.find(item => pathname === item.href);
         if (exactMatch) return exactMatch.href;
-        
+
         // Then check for pathname starting with href (prioritizing longer paths)
         for (const item of sortedMenuItems) {
             if (item.href !== "#" && pathname?.startsWith(item.href)) {
@@ -93,10 +93,10 @@ export default function SideBar() {
                                 : "text-[#6B7280] hover:bg-gray-50 hover:text-[#1F2937]"
                                 }`}
                         >
-                            {React.createElement(IconComponent, { 
-                                active: isActive, 
-                                width: item.width, 
-                                height: item.height 
+                            {React.createElement(IconComponent, {
+                                active: isActive,
+                                width: item.width,
+                                height: item.height
                             })}
                             {item.name}
                         </Link>
@@ -105,9 +105,18 @@ export default function SideBar() {
             </nav>
 
             {/* Footer / Logout */}
-            <div className="mt-auto p-4 pt-0">
-                <button className="w-full flex items-center justify-center gap-2 bg-[#FF4D4F] text-white px-4 py-3 rounded-lg font-bold text-sm hover:bg-[#ff3538] transition-colors shadow-sm">
-                    <LogOut size={18} className="rotate-180" />
+            <div className="mt-auto p-4 pt-0" suppressHydrationWarning>
+                <button className="w-full flex items-center justify-center gap-2 bg-[#FF383C] text-white px-4 py-3 rounded-lg font-bold text-sm hover:bg-[#ff3538] transition-colors shadow-sm">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_1632_15957)">
+                            <path d="M0.880137 14.09L4.75014 18C4.8431 18.0938 4.9537 18.1681 5.07556 18.2189C5.19742 18.2697 5.32813 18.2958 5.46014 18.2958C5.59215 18.2958 5.72286 18.2697 5.84471 18.2189C5.96657 18.1681 6.07717 18.0938 6.17014 18C6.26387 17.9071 6.33826 17.7965 6.38903 17.6746C6.4398 17.5527 6.46594 17.422 6.46594 17.29C6.46594 17.158 6.4398 17.0273 6.38903 16.9054C6.33826 16.7836 6.26387 16.673 6.17014 16.58L2.61014 13H23.0001C23.2654 13 23.5197 12.8947 23.7072 12.7071C23.8948 12.5196 24.0001 12.2652 24.0001 12C24.0001 11.7348 23.8948 11.4805 23.7072 11.2929C23.5197 11.1054 23.2654 11 23.0001 11H2.55014L6.17014 7.38002C6.34743 7.19405 6.44633 6.94696 6.44633 6.69002C6.44633 6.43308 6.34743 6.186 6.17014 6.00002C6.07717 5.90629 5.96657 5.8319 5.84471 5.78113C5.72286 5.73036 5.59215 5.70422 5.46014 5.70422C5.32813 5.70422 5.19742 5.73036 5.07556 5.78113C4.9537 5.8319 4.8431 5.90629 4.75014 6.00002L0.880137 9.85002C0.318335 10.4125 0.0027771 11.175 0.0027771 11.97C0.0027771 12.765 0.318335 13.5275 0.880137 14.09Z" fill="white" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_1632_15957">
+                                <rect width="24" height="24" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
                     Logout
                 </button>
             </div>
